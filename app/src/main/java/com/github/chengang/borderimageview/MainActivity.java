@@ -3,7 +3,7 @@ package com.github.chengang.borderimageview;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import com.github.chengang.library.widget.BorderImageView;
+import com.github.chengang.library.BorderImageView;
 
 public class MainActivity extends AppCompatActivity {
 

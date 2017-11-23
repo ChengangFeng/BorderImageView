@@ -1,8 +1,7 @@
-package com.github.chengang.library.drawable;
+package com.github.chengang.library;
 
 import android.content.res.ColorStateList;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.ColorFilter;
 import android.graphics.Paint;
 import android.graphics.PixelFormat;
@@ -50,7 +49,7 @@ public class BorderDrawable extends Drawable implements Animatable {
         int color = mColorStateList.getColorForState(state, mStartColor);
         if (mEndColor != color) {
             if (mDuration > 0) {
-                mStartColor = isRunning() ? mMiddleColor : mStartColor;
+                mStartColor = mMiddleColor;
                 mEndColor = color;
                 start();
             } else {
@@ -107,7 +106,7 @@ public class BorderDrawable extends Drawable implements Animatable {
     private void update() {
         long curDuration = SystemClock.uptimeMillis() - mAnimateStartTime;
         float animateExecuteProgress = Math.min(1f, (float) curDuration / mDuration);
-        mMiddleColor = getColorFrom(mStartColor, mEndColor, animateExecuteProgress);
+        mMiddleColor = ColorUtil.getMiddleColor(mStartColor, mEndColor, animateExecuteProgress);
         mPaint.setColor(mMiddleColor);
         if (1f != animateExecuteProgress) {
             scheduleSelf(mUpdater, SystemClock.uptimeMillis());
@@ -149,25 +148,4 @@ public class BorderDrawable extends Drawable implements Animatable {
         isAnimateRunning = false;
     }
 
-    /**
-     * 取两个颜色间的渐变区间 中的某一点的颜色
-     *
-     * @param startColor
-     * @param endColor
-     * @param radio
-     * @return
-     */
-    public int getColorFrom(int startColor, int endColor, float radio) {
-        int redStart = Color.red(startColor);
-        int blueStart = Color.blue(startColor);
-        int greenStart = Color.green(startColor);
-        int redEnd = Color.red(endColor);
-        int blueEnd = Color.blue(endColor);
-        int greenEnd = Color.green(endColor);
-
-        int red = (int) (redStart + ((redEnd - redStart) * radio + 0.5));
-        int greed = (int) (greenStart + ((greenEnd - greenStart) * radio + 0.5));
-        int blue = (int) (blueStart + ((blueEnd - blueStart) * radio + 0.5));
-        return Color.argb(255, red, greed, blue);
-    }
 }

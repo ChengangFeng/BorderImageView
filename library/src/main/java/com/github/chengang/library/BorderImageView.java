@@ -1,4 +1,4 @@
-package com.github.chengang.library.widget;
+package com.github.chengang.library;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
@@ -8,9 +8,6 @@ import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
-import android.util.StateSet;
-
-import com.github.chengang.library.drawable.BorderDrawable;
 
 /**
  * Created by 陈岗不姓陈 on 2017/11/22.
@@ -20,11 +17,6 @@ import com.github.chengang.library.drawable.BorderDrawable;
 public class BorderImageView extends AppCompatImageView {
 
     private BorderDrawable mBorderDrawable;
-
-    private static final ColorStateList DEFAULT_TINT = new ColorStateList(
-            new int[][]{{-android.R.attr.state_enabled}, StateSet.WILD_CARD},
-            new int[]{0x80FFFFFF, 0xFFFFFFFF}
-    );
 
     public BorderImageView(Context context) {
         this(context, null);
@@ -40,7 +32,7 @@ public class BorderImageView extends AppCompatImageView {
     }
 
     private void init() {
-        int[] colors = new int[]{Color.BLUE, Color.GREEN};
+        int[] colors = new int[]{Color.parseColor("#E91E63"), Color.parseColor("#2196F3")};
         int[][] states = new int[][]{{android.R.attr.state_pressed}, {}};
         ColorStateList colorStateList = new ColorStateList(states, colors);
         mBorderDrawable = new BorderDrawable(colorStateList, 15);
