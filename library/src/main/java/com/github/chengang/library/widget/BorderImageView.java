@@ -40,9 +40,9 @@ public class BorderImageView extends AppCompatImageView {
     }
 
     private void init() {
-        int[] colors = new int[]{Color.BLUE, Color.TRANSPARENT};
+        int[] colors = new int[]{Color.BLUE, Color.GREEN};
         int[][] states = new int[][]{{android.R.attr.state_pressed}, {}};
-        ColorStateList colorStateList = new ColorStateList(states,colors);
+        ColorStateList colorStateList = new ColorStateList(states, colors);
         mBorderDrawable = new BorderDrawable(colorStateList, 15);
         mBorderDrawable.setCallback(this);
     }
@@ -60,8 +60,14 @@ public class BorderImageView extends AppCompatImageView {
     }
 
     @Override
+    public void jumpDrawablesToCurrentState() {
+        super.jumpDrawablesToCurrentState();
+        mBorderDrawable.jumpToCurrentState();
+    }
+
+    @Override
     protected boolean verifyDrawable(@NonNull Drawable dr) {
-        return super.verifyDrawable(dr)|| dr == mBorderDrawable;
+        return super.verifyDrawable(dr) || dr == mBorderDrawable;
     }
 
     @Override
