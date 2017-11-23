@@ -10,6 +10,9 @@
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_centerInParent="true"
+        app:border_width="6dp"
+        app:start_color="@color/colorAccent"
+        app:end_color="@color/colorPrimary"
         android:clickable="true"
         android:focusable="true"
         android:src="@drawable/avatar" />

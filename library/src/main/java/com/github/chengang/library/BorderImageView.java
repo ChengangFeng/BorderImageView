@@ -2,6 +2,7 @@ package com.github.chengang.library;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
+import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
@@ -28,14 +29,19 @@ public class BorderImageView extends AppCompatImageView {
 
     public BorderImageView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        init();
+        init(attrs);
     }
 
-    private void init() {
-        int[] colors = new int[]{Color.parseColor("#E91E63"), Color.parseColor("#2196F3")};
+    private void init(AttributeSet attrs) {
+        TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.BorderImageView);
+        int startColor = typedArray.getColor(R.styleable.BorderImageView_start_color, Color.parseColor("#E91E63"));
+        int endColor = typedArray.getColor(R.styleable.BorderImageView_end_color, Color.parseColor("#2196F3"));
+        int borderWidth = typedArray.getDimensionPixelOffset(R.styleable.BorderImageView_border_width, 15);
+        typedArray.recycle();
+        int[] colors = new int[]{endColor, startColor};
         int[][] states = new int[][]{{android.R.attr.state_pressed}, {}};
         ColorStateList colorStateList = new ColorStateList(states, colors);
-        mBorderDrawable = new BorderDrawable(colorStateList, 15);
+        mBorderDrawable = new BorderDrawable(colorStateList, borderWidth);
         mBorderDrawable.setCallback(this);
     }
 
